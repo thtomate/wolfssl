@@ -1309,11 +1309,10 @@ int wolfSSL_GetHmacType_ex(CipherSpecs* specs)
  * How to update:
  *   Assign extension types that extrapolate the number of available semaphores
  *   to the first available index going backwards in the semaphore array.
- *   When adding a new extension type that don't extrapolate the number of
- *   available semaphores, check for a possible collision with with a
- *   'remapped' extension type.
- *
- * Update TLSX_Parse for duplicate detection if more added above 62.
+ *   When adding a new extension type that does not extrapolate the number of
+ *   available semaphores, check for a possible collision with a 'remapped'
+ *   extension type.
+ *   Also, update TLSX_Parse for duplicate detection if more added above 62.
  */
 static WC_INLINE word16 TLSX_ToSemaphore(word16 type)
 {
@@ -14342,6 +14341,12 @@ int TLSX_Parse(WOLFSSL* ssl, const byte* input, word16 length, byte msgType,
         if ((type <= 62) || (type == TLSX_RENEGOTIATION_INFO)
         #ifdef WOLFSSL_QUIC
             || (type == TLSX_KEY_QUIC_TP_PARAMS_DRAFT)
+        #endif
+        #if defined(WOLFSSL_TLS13) && defined(HAVE_ECH)
+            || (type == TLSX_ECH)
+        #endif
+        #ifdef WOLFSSL_DUAL_ALG_CERTS
+            || (type == TLSX_CKS)
         #endif
             )
         {
