@@ -94,7 +94,6 @@ comment "Supported elliptic curves"
 config WOLFSSL_ECP_ALL_ENABLED
 	bool "Enable all available elliptic curves"
 	select WOLFSSL_ECP_DP_SECP192R1_ENABLED
-	select WOLFSSL_ECP_DP_SECP192R1_ENABLED
 	select WOLFSSL_ECP_DP_SECP224R1_ENABLED
 	select WOLFSSL_ECP_DP_SECP256R1_ENABLED
 	select WOLFSSL_ECP_DP_SECP384R1_ENABLED
